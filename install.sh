@@ -23,6 +23,20 @@ fi
 # POSIX way to get script's dir: https://stackoverflow.com/a/29834779/12156188
 script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
 
+# Install zsh plugins
+ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom"
+if [ -d "${HOME}/.oh-my-zsh" ]; then
+  echo "Installing zsh-syntax-highlighting..." >&2
+  if [ ! -d "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting" ]; then
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting"
+  fi
+  
+  echo "Installing zsh-autosuggestions..." >&2
+  if [ ! -d "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" ]; then
+    git clone https://github.com/zsh-users/zsh-autosuggestions.git "${ZSH_CUSTOM}/plugins/zsh-autosuggestions"
+  fi
+fi
+
 set -- init --apply --source="${script_dir}"
 
 echo "Running 'chezmoi $*'" >&2
