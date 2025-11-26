@@ -1,0 +1,36 @@
+[core]
+    editor = code --wait
+[merge]
+    tool = vscode
+[mergetool "vscode"]
+    cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
+[mergetool]
+    keepBackup = false
+[diff]
+    tool = vscode
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+[push]
+    autoSetupRemote = true
+
+{{- $isWork := false -}}
+{{- if eq .chezmoi.os "windows" -}}
+{{-   $isWork = true -}}
+{{- else if env "CODESPACES" -}}
+{{-   $repoOwner := env "GITHUB_REPOSITORY_OWNER" -}}
+{{-   if eq $repoOwner "microsoft" -}}
+{{-     $isWork = true -}}
+{{-   end -}}
+{{- end -}}
+
+{{- if $isWork }}
+[credential "azrepos:org/dynamicssmb2"]
+    username = haoransun@microsoft.com
+[user]
+    name = Haoran Sun (Business Central)
+    email = haoransun@microsoft.com
+{{- else }}
+[user]
+    name = Haoran Sun
+    email = haoranpb@outlook.com
+{{- end }}
