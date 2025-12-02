@@ -17,8 +17,8 @@
 {{- if eq .chezmoi.os "windows" -}}
 {{-   $isWork = true -}}
 {{- else if env "CODESPACES" -}}
-{{-   $repoOwner := env "GITHUB_REPOSITORY_OWNER" -}}
-{{-   if eq $repoOwner "microsoft" -}}
+{{-   $repo := env "GITHUB_REPOSITORY" -}}
+{{-   if hasPrefix "microsoft/" $repo -}}
 {{-     $isWork = true -}}
 {{-   end -}}
 {{- end -}}
