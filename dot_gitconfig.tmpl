@@ -16,11 +16,6 @@
 {{- $isWork := false -}}
 {{- if eq .chezmoi.os "windows" -}}
 {{-   $isWork = true -}}
-{{- else if env "CODESPACES" -}}
-{{-   $repo := env "GITHUB_REPOSITORY" -}}
-{{-   if hasPrefix "microsoft/" $repo -}}
-{{-     $isWork = true -}}
-{{-   end -}}
 {{- end -}}
 
 {{- if $isWork }}
@@ -29,7 +24,7 @@
 [user]
     name = Haoran Sun (Business Central)
     email = haoransun@microsoft.com
-{{- else }}
+{{- else if not (env "CODESPACES") }}
 [user]
     name = Haoran Sun
     email = haoranpb@outlook.com
